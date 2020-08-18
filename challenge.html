@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<input type="text" id="input" name="input">
+	<button type="button" onclick="change()"> Display Output </button>
+	<p id="display"></p>
+
+
+
+	<script>
+
+		function change(){
+			var inputExpression = document.getElementById("input").value;
+			var container=0;
+			var finalExpression = container + inputExpression;
+			var array = finalExpression.split(""); 
+			var result="";
+			var i=0;
+			var x=1;
+			var x2=2;
+			var x3=3;
+for(var x=1, x2=2, x3=3, i=0; i<array.length; x+=3, x2+=2, x3+=2, i+=2){
+
+
+if(isNaN(array[x]) || isNaN(array[x2]))
+			{
+				if(array[x]=="-")
+				{
+					if(array[x2]=="-")
+					{
+						result+=container+parseInt(array[x3]);
+						document.getElementById("display").innerHTML=result;
+					}
+					else{
+						result+=container-parseInt(array[x2]);
+						document.getElementById("display").innerHTML=result;
+					}
+				}
+				else if(array[x]=="+")
+				{
+					result+=container+parseInt(array[x2]);
+					document.getElementById("display").innerHTML=result;
+				}
+				else if(array[x]=="*")
+				{
+					result+=container*parseInt(array[x2]);
+					document.getElementById("display").innerHTML=result;
+				}
+				else if(array[x]=="/")
+				{
+					result=container/parseInt(array[x2]);
+					document.getElementById("display").innerHTML=result;
+				}
+				else
+				{
+					result=container+parseInt(array[x]);
+					document.getElementById("display").innerHTML=result;
+					
+				}
+
+			}
+			else
+			{
+				result="double character"+x;
+			}
+	
+
+
+}
+	
+				
+		}
+		
+	</script>
+
+</body>
+</html>
