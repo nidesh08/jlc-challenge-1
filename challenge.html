@@ -5,31 +5,91 @@
 </head>
 <body>
 
-	<input type="text" id="input" name="input">
-	<button type="button" onclick="change()"> Display Output </button>
-	<p id="display"></p>
+	<input type="text" id="input" name="input" style="font-size: 30px;">
+	<button type="button" onclick="change()"style="font-size: 30px;"> Display Output </button>
+	<p id="display"style="font-size: 30px;"></p>
 
 
 	<script>
 
 		function change(){
 			var inputExpression = document.getElementById("input").value;
-			var container=0;
-			var finalExpression = container + inputExpression;
-			var array = finalExpression.split(""); 
-			var result="";
-			var i=0;
-			var x=1;
-			var x2=2;
-			var x3=3;
-			[7:33 PM] Joseph Lawrence
+			var inputArray = inputExpression.split(""); 
+			var containerArray = ["0"];
+			var result=0;
+			var count=0;//kung ilan nabawas sa Inputarray, yun madadagdag dito
+			var x=0;
+			var doubleA=isNaN(inputArray[x]);
+			var doubleB=isNaN(inputArray[x+1]);
+			var doubleC=isNaN(parseInt(containerArray));
+
+
     
-//this -- is a new line hehe
-//this is a new line hehe
-for(var x=1, x2=2, x3=3, i=0; i<array.length; x+=3, x2+=2, x3+=2, i+=2){
+while (count<inputArray.length){
+if(doubleA==false && doubleB==false && doubleC==false)
+{
+	
+	document.getElementById("display").innerHTML="double character at" + x;
+}
+else
+{
+	if (inputArray[x]=="-")
+	{
+		if(inputArray[x+1]=="-")
+			{
+				result=parseInt(containerArray)+parseInt((inputArray[x+2]));
+				containerArray=result;
+				document.getElementById("display").innerHTML=result;
+				x+=1;
+				count+=1;
+			}
+			else{
+				result=parseInt(containerArray)-parseInt((inputArray[x+1]));
+				containerArray=result;
+				document.getElementById("display").innerHTML=result;
+				
+			}
+	}
+	
+	else if ((inputArray[x])=="+")
+	{
+		result=parseInt(containerArray)+parseInt((inputArray[x+1]));
+		containerArray=result;
+		document.getElementById("display").innerHTML=result;
+		
+	}
+	else if ((inputArray[x])=="*")
+	{
+		result=parseInt(containerArray)*parseInt((inputArray[x+1]));
+		containerArray=result;
+		document.getElementById("display").innerHTML=result;
+	
+	}
+	else if ((inputArray[x])=="/")
+	{
+		result=parseInt(containerArray)/parseInt((inputArray[x+1]));
+		containerArray=result;
+		document.getElementById("display").innerHTML=result;
+	
+	}
+
+		else
+		{
+			result=parseInt(containerArray)+parseInt(inputArray[x]);
+		containerArray=result;
+		document.getElementById("display").innerHTML=result;
+		x--;
+		}
+}
+	x+=2;
+	count+=2;
+	}
+
+		
+}
 
 
-if(isNaN(array[x]) || isNaN(array[x2]))
+/*if(isNaN(array[x]) || isNaN(array[x2]))
 			{
 				if(array[x]=="-")
 				{
@@ -70,13 +130,10 @@ if(isNaN(array[x]) || isNaN(array[x2]))
 			{
 				result="double character"+x;
 			}
+			*/
 	
-
-
-}
-	
-				
-		}
+			
+		//}
 		
 	</script>
 
