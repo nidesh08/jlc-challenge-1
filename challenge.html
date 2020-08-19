@@ -12,129 +12,140 @@
 
 	<script>
 
-		function change(){
-			var inputExpression = document.getElementById("input").value;
-			var inputArray = inputExpression.split(""); 
-			var containerArray = ["0"];
-			var result=0;
-			var count=0;//kung ilan nabawas sa Inputarray, yun madadagdag dito
-			var x=0;
-			var doubleA=isNaN(inputArray[x]);
-			var doubleB=isNaN(inputArray[x+1]);
-			var doubleC=isNaN(parseInt(containerArray));
+function change(){
+	var inputExpression = document.getElementById("input").value;
+	var inputArray = inputExpression.split(""); 
+	var cloneInputArray = inputExpression.split(""); 
+	var containerArray = ["0"];
+	var result=0;
+	var count=0;//kung ilan nabawas sa Inputarray, yun madadagdag dito
+	var x=0;//index
+	var doubleA=isNaN(inputArray[x]);
+	var doubleB=isNaN(inputArray[(x+1)]);
+	var counter=0;
+	var position=0;
+	var checkA=inputArray.includes(".");
+	var checkB=inputArray.includes(",");
 
 
-    
-while (count<inputArray.length){
-if(doubleA==false && doubleB==false && doubleC==false)
+if (checkA==true)
 {
-	
-	document.getElementById("display").innerHTML="double character at" + x;
+	result="Decimal points are not allowed";
+}  
+else if (checkB==true)
+{
+	result="Input numbers cannot have commas";
 }
-else
+
+	
+else{
+while (count<=inputArray.length){
+
+if(containerArray==0)
 {
-	if (inputArray[x]=="-")
+	if (doubleA==false && doubleB==false)
 	{
-		if(inputArray[x+1]=="-")
+			counter++;
+			result="Invalid entry at Character " + counter;
+	}
+	else if(doubleA==false && doubleB==true)
+		{
+			result=parseInt(containerArray)+parseInt(inputArray[x]);
+			containerArray=result;
+			x--;
+			counter++;
+			count--;
+			cloneInputArray.splice(0,1);
+	}
+	else{
+		if (inputArray[x]=="-")
+		{
+			if(inputArray[x+1]=="-")
 			{
 				result=parseInt(containerArray)+parseInt((inputArray[x+2]));
 				containerArray=result;
-				document.getElementById("display").innerHTML=result;
 				x+=1;
 				count+=1;
-			}
-			else{
-				result=parseInt(containerArray)-parseInt((inputArray[x+1]));
-				containerArray=result;
-				document.getElementById("display").innerHTML=result;
-				
-			}
-	}
-	
-	else if ((inputArray[x])=="+")
-	{
-		result=parseInt(containerArray)+parseInt((inputArray[x+1]));
-		containerArray=result;
-		document.getElementById("display").innerHTML=result;
-		
-	}
-	else if ((inputArray[x])=="*")
-	{
-		result=parseInt(containerArray)*parseInt((inputArray[x+1]));
-		containerArray=result;
-		document.getElementById("display").innerHTML=result;
-	
-	}
-	else if ((inputArray[x])=="/")
-	{
-		result=parseInt(containerArray)/parseInt((inputArray[x+1]));
-		containerArray=result;
-		document.getElementById("display").innerHTML=result;
-	
-	}
-
-		else
-		{
-			result=parseInt(containerArray)+parseInt(inputArray[x]);
-		containerArray=result;
-		document.getElementById("display").innerHTML=result;
-		x--;
-		}
-}
-	x+=2;
-	count+=2;
-	}
-
-		
-}
-
-
-/*if(isNaN(array[x]) || isNaN(array[x2]))
-			{
-				if(array[x]=="-")
-				{
-					if(array[x2]=="-")
-					{
-						result+=container+parseInt(array[x3]);
-						document.getElementById("display").innerHTML=result;
-					}
-					else{
-						result+=container-parseInt(array[x2]);
-						document.getElementById("display").innerHTML=result;
-					}
-				}
-				else if(array[x]=="+")
-				{
-					result+=container+parseInt(array[x2]);
-					document.getElementById("display").innerHTML=result;
-				}
-				else if(array[x]=="*")
-				{
-					result+=container*parseInt(array[x2]);
-					document.getElementById("display").innerHTML=result;
-				}
-				else if(array[x]=="/")
-				{
-					result=container/parseInt(array[x2]);
-					document.getElementById("display").innerHTML=result;
-				}
-				else
-				{
-					result=container+parseInt(array[x]);
-					document.getElementById("display").innerHTML=result;
-					
-				}
-
+				cloneInputArray.splice(0,3);
 			}
 			else
 			{
-				result="double character"+x;
+				result=parseInt(containerArray)-parseInt((inputArray[x+1]));
+				containerArray=result;
+				cloneInputArray.splice(0,2);
 			}
-			*/
-	
-			
-		//}
-		
+		}
+		else if ((inputArray[x])=="+")
+		{
+			result=parseInt(containerArray)+parseInt((inputArray[x+1]));
+			containerArray=result;
+			cloneInputArray.splice(0,2);
+		}
+		else if ((inputArray[x])=="*")
+		{
+			result=parseInt(containerArray)*parseInt((inputArray[x+1]));
+			containerArray=result;
+			cloneInputArray.splice(0,2);
+		}
+		else if ((inputArray[x])=="/")
+		{
+			result=parseInt(containerArray)/parseInt((inputArray[x+1]));
+			containerArray=result;
+			cloneInputArray.splice(0,2);
+		}
+	}
+}
+else if (containerArray!=0)
+{
+	if(inputArray[x]<=9)
+	{
+		position=inputArray.length-cloneInputArray.length;
+		result="Invalid entry at Character " + position;
+	}
+		if (inputArray[x]=="-")
+		{
+			if(inputArray[x+1]=="-")
+			{
+				result=parseInt(containerArray)+parseInt((inputArray[x+2]));
+				containerArray=result;
+				x+=1;
+				count+=1;
+				cloneInputArray.splice(0,3);
+			}
+			else
+			{
+				result=parseInt(containerArray)-parseInt((inputArray[x+1]));
+				containerArray=result;
+				cloneInputArray.splice(0,2);
+			}
+		}
+		else if ((inputArray[x])=="+")
+		{
+			result=parseInt(containerArray)+parseInt((inputArray[x+1]));
+			containerArray=result;
+			cloneInputArray.splice(0,2);
+		}
+		else if ((inputArray[x])=="*")
+		{
+			result=parseInt(containerArray)*parseInt((inputArray[x+1]));
+			containerArray=result;
+			cloneInputArray.splice(0,2);
+		}
+		else if ((inputArray[x])=="/")
+		{
+			result=parseInt(containerArray)/parseInt((inputArray[x+1]));
+			containerArray=result;
+			cloneInputArray.splice(0,2);
+		}
+}
+x+=2;
+count+=2;
+counter=0;
+}
+}
+document.getElementById("display").innerHTML=result;
+}
+
 	</script>
 
 </body>
