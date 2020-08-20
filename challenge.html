@@ -5,7 +5,7 @@
 </head>
 <body>
 
-	<input type="text" id="input" name="input" style="font-size: 30px;">
+	<input type="text" id="input" name="input" style="font-size: 30px;" autocomplete="off">
 	<button type="button" onclick="change()"style="font-size: 30px;"> Display Output </button>
 	<p id="display"style="font-size: 30px;"></p>
 
@@ -18,15 +18,12 @@ function change(){
 	var cloneInputArray = inputExpression.split(""); 
 	var containerArray = ["0"];
 	var result=0;
-	var count=0;//kung ilan nabawas sa Inputarray, yun madadagdag dito
+	var count=0;//kung ilan nabawas sa inputArray, yun madadagdag dito
 	var x=0;//index
-	var doubleA=isNaN(inputArray[x]);
-	var doubleB=isNaN(inputArray[(x+1)]);
 	var counter=0;
 	var position=0;
 	var checkA=inputArray.includes(".");
 	var checkB=inputArray.includes(",");
-
 
 if (checkA==true)
 {
@@ -37,18 +34,19 @@ else if (checkB==true)
 	result="Input numbers cannot have commas";
 }
 
-	
 else{
-while (count<=inputArray.length){
+
+while (count<inputArray.length){
 
 if(containerArray==0)
 {
-	if (doubleA==false && doubleB==false)
+	if ((inputArray[x]<=9) && (inputArray[x+1]<=9))
 	{
 			counter++;
 			result="Invalid entry at Character " + counter;
 	}
-	else if(doubleA==false && doubleB==true)
+
+	if((inputArray[x]<=9) && (count==0))
 		{
 			result=parseInt(containerArray)+parseInt(inputArray[x]);
 			containerArray=result;
@@ -56,8 +54,14 @@ if(containerArray==0)
 			counter++;
 			count--;
 			cloneInputArray.splice(0,1);
+		}
+	else if ((inputArray[x]<=9) && (count!=0))
+	{
+		position=inputArray.length-cloneInputArray.length;
+		result="Invalid entry at Character " + position;
 	}
-	else{
+	else
+	{
 		if (inputArray[x]=="-")
 		{
 			if(inputArray[x+1]=="-")
