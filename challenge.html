@@ -203,27 +203,34 @@
 		                }
 		                else if ((inputArray[x])=="/")
 		                {
-			                result=parseInt(containerArray)/parseInt((inputArray[x+1]));
-                            if (isNaN(result))
-                            {
-                                x--;
-                                count--;
-                                i--;
-                            }
-                            else
-                            {
-                                if(Number.isInteger(result))
-                                {
-                                    containerArray=result;
-                                    cloneInputArray.splice(0,2);
-                                } 
-                                else
-                                {
-                                	result=result.toFixed(8);
-                                    containerArray=result;
-                                    cloneInputArray.splice(0,2); 
-                                }                                
-                            }
+							if(inputArray[x+1]==0)
+							{
+								result="Cannot be divided by 0";
+							}
+							else
+							{
+								result=parseInt(containerArray)/parseInt((inputArray[x+1]));
+                            	if (isNaN(result))
+                            	{
+                                	x--;
+                                	count--;
+                                	i--;
+                            	}
+                            	else
+                            	{
+                                	if(Number.isInteger(result))
+                                	{
+                                    	containerArray=result;
+                                    	cloneInputArray.splice(0,2);
+                                	} 
+                                	else
+                                	{
+                                		result=result.toFixed(8);
+                                    	containerArray=result;
+                                    	cloneInputArray.splice(0,2); 
+                                	}                                
+                            	}
+							}
 		                }
 	                }
                 }
@@ -341,27 +348,34 @@
                     }
                     else if ((inputArray[x])=="/")
                     {
-                        result=parseInt(containerArray)/parseInt((inputArray[x+1]));
-                        if (isNaN(result))
-                        {
-                            x--;
-                            count--;
-                            i--;
-                        }
-                        else
-                        {
-                            if(Number.isInteger(result))
-                            {
-                                containerArray=result;
-                                cloneInputArray.splice(0,2);
-                            }
-                            else
-                            {
-                            	result=result.toFixed(8);
-                                containerArray=result;
-                                cloneInputArray.splice(0,2);
-                            }
-                        }
+						if(inputArray[x+1]==0)
+						{
+							result="Cannot be divided by 0";
+						}
+						else
+						{
+							result=parseInt(containerArray)/parseInt((inputArray[x+1]));
+                        	if (isNaN(result))
+                        	{
+                            	x--;
+                            	count--;
+                            	i--;
+                        	}
+                        	else
+                        	{
+                            	if(Number.isInteger(result))
+                            	{
+                                	containerArray=result;
+                                	cloneInputArray.splice(0,2);
+                            	}
+                            	else
+                            	{
+                            		result=result.toFixed(8);
+                                	containerArray=result;
+                                	cloneInputArray.splice(0,2);
+                            	}
+                        	}
+						}
                     }
                 }
             }
