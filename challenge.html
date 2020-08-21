@@ -10,147 +10,369 @@
 	<p id="display"style="font-size: 30px;"></p>
 
 
-	<script>
+<script>
 
-function change(){
-	var inputExpression = document.getElementById("input").value;
-	var inputArray = inputExpression.split(""); 
-	var cloneInputArray = inputExpression.split(""); 
-	var containerArray = ["0"];
-	var result=0;
-	var count=0;//kung ilan nabawas sa inputArray, yun madadagdag dito
-	var x=0;//index
-	var counter=0;
-	var position=0;
-	var checkA=inputArray.includes(".");
-	var checkB=inputArray.includes(",");
+    function change()
+    {
+    	var inputExpression = document.getElementById("input").value;
+	    var inputArray = inputExpression.split(""); 
+        var checkArray=[""];
+        var cloneInputArray = inputExpression.split(""); 
+        var containerArray = ["0"];
+        var count=0;//kung ilan nabawas sa inputArray, yun madadagdag dito
+        var x=0;//index for inputArray
+        var position=0;
+        var checkA=inputArray.includes(".");
+        var checkB=inputArray.includes(",");
+        var i=0;//index for checkArray
+        var result="";
 
-if (checkA==true)
-{
-	result="Decimal points are not allowed";
-}  
-else if (checkB==true)
-{
-	result="Input numbers cannot have commas";
-}
+    if (checkA==true)
+    {
+        result="Decimal points are not allowed";
+    }  
+    else if (checkB==true)
+    {
+        result="Input numbers cannot have commas";
+    }
+    else
+    {
+        while (count<inputArray.length)
+        {
+            checkArray[i]=inputArray[i].charCodeAt(0);
 
-else{
+            if ((checkArray[i] >= 65 && checkArray[i] <=90) ||
+                 (checkArray[i]>=97 &&checkArray[i]<=122))
+            {
+                result="Alphabet letters are not allowed.";
+                inputArray.length=0;
+            }
+            else if((checkArray[i] >= 48 && checkArray[i] <=57) ||
+                 (checkArray[i]=42) || (checkArray[i]=43) || 
+                 (checkArray[i]=45) || (checkArray[i]=47))
+            {
+                if(containerArray==0)
+                {
+                    if ((inputArray[x]<=9) && (inputArray[x+1]<=9))
+                    {
+                        position=inputArray.length-cloneInputArray.length;
+                        result="Invalid entry at Character " + position;
+                    }
 
-while (count<inputArray.length){
-
-if(containerArray==0)
-{
-	if ((inputArray[x]<=9) && (inputArray[x+1]<=9))
-	{
-			counter++;
-			result="Invalid entry at Character " + counter;
-	}
-
-	if((inputArray[x]<=9) && (count==0))
-		{
-			result=parseInt(containerArray)+parseInt(inputArray[x]);
-			containerArray=result;
-			x--;
-			counter++;
-			count--;
-			cloneInputArray.splice(0,1);
-		}
-	else if ((inputArray[x]<=9) && (count!=0))
-	{
-		position=inputArray.length-cloneInputArray.length;
-		result="Invalid entry at Character " + position;
-	}
-	else
-	{
-		if (inputArray[x]=="-")
-		{
-			if(inputArray[x+1]=="-")
-			{
-				result=parseInt(containerArray)+parseInt((inputArray[x+2]));
-				containerArray=result;
-				x+=1;
-				count+=1;
-				cloneInputArray.splice(0,3);
-			}
-			else
-			{
-				result=parseInt(containerArray)-parseInt((inputArray[x+1]));
-				containerArray=result;
-				cloneInputArray.splice(0,2);
-			}
-		}
-		else if ((inputArray[x])=="+")
-		{
-			result=parseInt(containerArray)+parseInt((inputArray[x+1]));
-			containerArray=result;
-			cloneInputArray.splice(0,2);
-		}
-		else if ((inputArray[x])=="*")
-		{
-			result=parseInt(containerArray)*parseInt((inputArray[x+1]));
-			containerArray=result;
-			cloneInputArray.splice(0,2);
-		}
-		else if ((inputArray[x])=="/")
-		{
-			result=parseInt(containerArray)/parseInt((inputArray[x+1]));
-			containerArray=result;
-			cloneInputArray.splice(0,2);
-		}
-	}
-}
-else if (containerArray!=0)
-{
-	if(inputArray[x]<=9)
-	{
-		position=inputArray.length-cloneInputArray.length;
-		result="Invalid entry at Character " + position;
-	}
-		if (inputArray[x]=="-")
-		{
-			if(inputArray[x+1]=="-")
-			{
-				result=parseInt(containerArray)+parseInt((inputArray[x+2]));
-				containerArray=result;
-				x+=1;
-				count+=1;
-				cloneInputArray.splice(0,3);
-			}
-			else
-			{
-				result=parseInt(containerArray)-parseInt((inputArray[x+1]));
-				containerArray=result;
-				cloneInputArray.splice(0,2);
-			}
-		}
-		else if ((inputArray[x])=="+")
-		{
-			result=parseInt(containerArray)+parseInt((inputArray[x+1]));
-			containerArray=result;
-			cloneInputArray.splice(0,2);
-		}
-		else if ((inputArray[x])=="*")
-		{
-			result=parseInt(containerArray)*parseInt((inputArray[x+1]));
-			containerArray=result;
-			cloneInputArray.splice(0,2);
-		}
-		else if ((inputArray[x])=="/")
-		{
-			result=parseInt(containerArray)/parseInt((inputArray[x+1]));
-			containerArray=result;
-			cloneInputArray.splice(0,2);
-		}
-}
-x+=2;
-count+=2;
-counter=0;
-}
-}
-document.getElementById("display").innerHTML=result;
-}
-
-	</script>
+                    if((inputArray[x]<=9) && (count==0))
+                    {
+                        result=parseInt(containerArray)+parseInt(inputArray[x]);
+                        if (isNaN(result))
+                        {
+                            x--;
+                            count--;
+                            i--; 
+                        }
+                        else 
+                        {
+                            if(Number.isInteger(result))
+                            {
+                                containerArray=result;
+                                x--;
+                                count--;
+                                cloneInputArray.splice(0,1);
+                                i--;
+                            }
+                            else
+                            {
+                            	result=result.toFixed(8);
+                                containerArray=result;
+                                x--;
+                                count--;
+                                cloneInputArray.splice(0,1);
+                                i--;
+                            }
+                        }
+		            }             
+	                else if ((inputArray[x]<=9) && (count!=0))
+	                {
+	                	position=inputArray.length-cloneInputArray.length;
+	                	result="Invalid entry at Character " + position;     
+	                }
+	                else
+	                {
+		                if (inputArray[x]=="-")
+		                {
+		                	if(inputArray[x+1]=="-")
+		                	{   
+                                result=parseInt(containerArray)+parseInt((inputArray[x+2]));                        
+                                if (isNaN(result))
+                                {
+                                    x=0;
+                                    count=0;
+                                    i=0;
+                                }      
+                                else
+                                {
+                                    if(Number.isInteger(result))
+                                    {
+                                        containerArray=result;
+                                        x++;
+                                        count++;
+                                        cloneInputArray.splice(0,3);
+                                        i++;
+                                    }
+                                    else
+                                    {
+                                    	result=result.toFixed(8);
+                                        containerArray=result;
+                                        x++;
+                                        count++;
+                                        cloneInputArray.splice(0,3);
+                                        i++;
+                                    }  
+                                }
+                            }
+                            else
+                            {
+                                result=parseInt(containerArray)-parseInt((inputArray[x+1]));
+                                if (isNaN(result))
+                                {
+                                    x--;
+                                    count--;
+                                    i--;
+                                }
+                                else
+                                {
+                                    if(Number.isInteger(result))
+                                    {
+                                        containerArray=result;
+                                        cloneInputArray.splice(0,2);
+                                    }
+                                    else
+                                    {
+                                    	result=result.toFixed(8);
+                                        containerArray=result;
+                                        cloneInputArray.splice(0,2);   
+                                    }
+                                }
+                            }
+                        }
+                        else if ((inputArray[x])=="+")
+                        {          
+                            result=parseInt(containerArray)+parseInt((inputArray[x+1]));
+                            if (isNaN(result))
+                            {
+                            	x--;
+                            	count--;
+                            	i--;
+                            }
+                            else
+                            {
+                                if(Number.isInteger(result))
+                                {
+                                    containerArray=result;
+                                    cloneInputArray.splice(0,2);
+                                }
+                                else
+                                {
+                                	result=result.toFixed(8);
+                                    containerArray=result;
+                                    cloneInputArray.splice(0,2);
+                                }
+                            }
+		                }
+                        else if ((inputArray[x])=="*")
+                        {
+                            result=parseInt(containerArray)*parseInt((inputArray[x+1]));
+                            if (isNaN(result))
+                            {
+                                x--;
+                                count--;
+                                i--;
+                            }
+                            else
+                            {
+                                if(Number.isInteger(result))
+                                {
+                                    containerArray=result;
+                                    cloneInputArray.splice(0,2);
+                                }
+                                else
+                                {
+                                	result=result.toFixed(8);
+                                    containerArray=result;
+                                    cloneInputArray.splice(0,2);   
+                                }
+                            }
+		                }
+		                else if ((inputArray[x])=="/")
+		                {
+			                result=parseInt(containerArray)/parseInt((inputArray[x+1]));
+                            if (isNaN(result))
+                            {
+                                x--;
+                                count--;
+                                i--;
+                            }
+                            else
+                            {
+                                if(Number.isInteger(result))
+                                {
+                                    containerArray=result;
+                                    cloneInputArray.splice(0,2);
+                                } 
+                                else
+                                {
+                                	result=result.toFixed(8);
+                                    containerArray=result;
+                                    cloneInputArray.splice(0,2); 
+                                }                                
+                            }
+		                }
+	                }
+                }
+                else if (containerArray!=0)
+                {
+                    if(inputArray[x]<=9)
+                    {
+                        position=inputArray.length-cloneInputArray.length;
+                        result="Invalid entry at Character " + position;
+                    }
+                    if (inputArray[x]=="-")
+                    {
+                        if(inputArray[x+1]=="-") 
+                        {
+                            result=parseInt(containerArray)+parseInt((inputArray[x+2]));
+                            if (isNaN(result))
+                            {
+                                x--;
+                                count--;
+                                i--;
+                            }
+                            else
+                            {
+                                if(Number.isInteger(result))
+                                {
+                                    containerArray=result;
+                                    x+=1;
+                                    count+=1;
+                                    cloneInputArray.splice(0,3);
+                                    i++;
+                                }
+                                else
+                                {
+                                	result=result.toFixed(8);
+                                    containerArray=result;
+                                    x+=1;
+                                    count+=1;
+                                    cloneInputArray.splice(0,3);
+                                    i++;  
+                                }
+                            }
+                        }
+                        else
+                        {
+                            result=parseInt(containerArray)-parseInt((inputArray[x+1]));
+                            if (isNaN(result))
+                            {
+                                x--;
+                                count--;
+                                i--;  
+                            }
+                            else
+                            {
+                                if(Number.isInteger(result))
+                                {
+                                    containerArray=result;
+                                    cloneInputArray.splice(0,2);
+                                }
+                                else
+                                {
+                                	result=result.toFixed(8);
+                                    containerArray=result;
+                                    cloneInputArray.splice(0,2);
+                                }
+                            }
+                        }
+                    }
+                    else if ((inputArray[x])=="+")
+                    {
+                        result=parseInt(containerArray)+parseInt((inputArray[x+1]));
+                        if (isNaN(result))
+                        {
+                            x--;
+                            count--;
+                            i--;
+                        }
+                        else
+                        {
+                            if(Number.isInteger(result))
+                            {
+                                containerArray=result;
+                                cloneInputArray.splice(0,2);
+                            }
+                            else
+                            {
+                            	result=result.toFixed(8);
+                                containerArray=result;
+                                cloneInputArray.splice(0,2); 
+                            }
+                        }
+                    }
+                    else if ((inputArray[x])=="*")
+                    {
+                        result=parseInt(containerArray)*parseInt((inputArray[x+1]));
+                        if (isNaN(result))
+                        {
+                            x--;
+                            count--;
+                            i--;
+                        }
+                        else
+                        {
+                            if(Number.isInteger(result))
+                            {
+                                containerArray=result;
+                                cloneInputArray.splice(0,2);
+                            }
+                            else
+                            {
+                            	result=result.toFixed(8);
+                                containerArray=result;
+                                cloneInputArray.splice(0,2); 
+                            }
+                        }
+                    }
+                    else if ((inputArray[x])=="/")
+                    {
+                        result=parseInt(containerArray)/parseInt((inputArray[x+1]));
+                        if (isNaN(result))
+                        {
+                            x--;
+                            count--;
+                            i--;
+                        }
+                        else
+                        {
+                            if(Number.isInteger(result))
+                            {
+                                containerArray=result;
+                                cloneInputArray.splice(0,2);
+                            }
+                            else
+                            {
+                            	result=result.toFixed(8);
+                                containerArray=result;
+                                cloneInputArray.splice(0,2);
+                            }
+                        }
+                    }
+                }
+            }
+            x+=2;
+            count+=2;
+            i+=2;
+        }
+    }
+    document.getElementById("display").innerHTML=result;
+    }
+</script>
 
 </body>
 </html>
